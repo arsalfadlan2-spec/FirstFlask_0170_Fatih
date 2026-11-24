@@ -3,22 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Parsing Parameter POST</title>
+    <title>{% if nama %}Halo, {{ nama }}{% else %}Name Tag{% endif %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <main class="box">
-        <h1>Parsing Parameter dengan POST</h1>
+    <main class="stage">
+
+        <article class="badge{% if nama %} terpasang{% endif %}">
+            <header class="badge-top">
+                <h1>Halo!</h1>
+                <p>nama saya</p>
+            </header>
+            <div class="badge-body">
+                {% if nama %}
+                <p class="nama">{{ nama }}</p>
+                {% else %}
+                <p class="nama kosong">nama kamu</p>
+                {% endif %}
+            </div>
+        </article>
 
         <form method="POST" action="/">
-            <label for="nama">Masukkan nama kamu</label>
-            <input type="text" id="nama" name="nama" placeholder="Contoh: Arsyal" required>
-            <button type="submit">Kirim</button>
+            <label for="nama">Siapa namamu?</label>
+            <div class="field">
+                <input type="text" id="nama" name="nama" maxlength="24"
+                       placeholder="Contoh: Arsyal" autocomplete="off" required
+                       {% if not nama %}autofocus{% endif %}>
+                <button type="submit">{% if nama %}Ganti nama{% else %}Pasang name tag{% endif %}</button>
+            </div>
         </form>
 
-        {% if nama %}
-        <p class="hasil">Halo, <strong>{{ nama }}</strong>! Data ini dikirim lewat method POST.</p>
-        {% endif %}
+        <p class="catatan">Nama dikirim lewat method POST dan dibaca Flask dengan <code>request.form</code>.</p>
+
     </main>
 </body>
 </html>

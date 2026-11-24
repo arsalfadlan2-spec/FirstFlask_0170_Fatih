@@ -1,65 +1,178 @@
+:root {
+    --biru: #2f3fe4;
+    --tinta: #101437;
+    --kertas: #fffefa;
+    --merah: #e8392f;
+    --matahari: #ffc933;
+}
+
 * { box-sizing: border-box; }
 
 body {
     margin: 0;
-    min-height: 100vh;
+    min-height: 100svh;
     display: grid;
     place-items: center;
-    font-family: "Segoe UI", sans-serif;
-    background: #f1f5f9;
-    color: #0f172a;
+    font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    color: var(--kertas);
+    background-color: var(--biru);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
 }
 
-.box {
-    width: min(420px, 92vw);
-    padding: 32px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+.stage {
+    width: min(380px, 92vw);
+    padding: 48px 0;
+    display: grid;
+    gap: 28px;
+    justify-items: center;
 }
 
-h1 {
-    margin: 0 0 24px;
-    font-size: 1.4rem;
+/* ---------- Name tag ---------- */
+.badge {
+    position: relative;
+    width: 100%;
+    background: var(--kertas);
+    color: var(--tinta);
+    border-radius: 22px;
+    overflow: hidden;
+    transform: rotate(-2deg);
+    transform-origin: top center;
+    box-shadow: 0 6px 0 var(--tinta), 0 28px 40px rgba(0, 0, 30, 0.35);
+}
+
+/* lubang tali name tag */
+.badge::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 76px;
+    height: 14px;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: var(--biru);
+    box-shadow: inset 0 3px 0 rgba(0, 0, 30, 0.45);
+}
+
+.badge.terpasang { animation: ayun 1.2s ease-out 1; }
+
+@keyframes ayun {
+    0%   { transform: rotate(-11deg); }
+    30%  { transform: rotate(6deg); }
+    60%  { transform: rotate(-4deg); }
+    100% { transform: rotate(-2deg); }
+}
+
+.badge-top {
+    padding: 46px 24px 18px;
+    text-align: center;
+    color: #fff;
+    background: var(--merah);
+}
+
+.badge-top h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 11vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.badge-top p {
+    margin: 6px 0 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.badge-body {
+    min-height: 170px;
+    padding: 36px 24px 40px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.nama {
+    margin: 0;
+    padding: 0 12px 6px;
+    font-family: "Permanent Marker", "Segoe Print", cursive;
+    font-size: clamp(2rem, 9vw, 2.9rem);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    border-bottom: 3px solid var(--tinta);
+}
+
+.nama.kosong { opacity: 0.3; }
+
+/* ---------- Form ---------- */
+form {
+    width: 100%;
+    display: grid;
+    gap: 10px;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
+    font-size: 1.05rem;
     font-weight: 600;
+}
+
+.field {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 1rem;
+    flex: 1 1 180px;
+    min-width: 0;
+    padding: 14px 16px;
+    font: inherit;
+    color: var(--tinta);
+    background: var(--kertas);
+    border: 3px solid var(--tinta);
+    border-radius: 14px;
 }
 
-input[type="text"]:focus {
-    outline: 2px solid #2563eb;
-    border-color: transparent;
-}
+input[type="text"]::placeholder { color: #6b6f8f; }
 
 button {
-    margin-top: 16px;
-    width: 100%;
-    padding: 10px;
-    border: 0;
-    border-radius: 8px;
-    background: #2563eb;
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 600;
+    flex: 1 1 auto;
+    padding: 14px 20px;
+    font: inherit;
+    font-weight: 700;
+    color: var(--tinta);
+    background: var(--matahari);
+    border: 3px solid var(--tinta);
+    border-radius: 14px;
+    box-shadow: 0 4px 0 var(--tinta);
     cursor: pointer;
+    transition: transform 0.08s, box-shadow 0.08s;
 }
 
-button:hover { background: #1d4ed8; }
+button:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 var(--tinta); }
+button:active { transform: translateY(3px);  box-shadow: 0 1px 0 var(--tinta); }
 
-.hasil {
-    margin: 24px 0 0;
-    padding: 12px 14px;
-    background: #dcfce7;
-    border-radius: 8px;
+input:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--kertas);
+    outline-offset: 3px;
+}
+
+.catatan {
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.catatan code {
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(0, 0, 30, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .badge.terpasang { animation: none; }
+    button { transition: none; }
 }
