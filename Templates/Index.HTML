@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parsing Parameter POST</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="box">
+        <h1>Parsing Parameter dengan POST</h1>
+
+        <form method="POST" action="/">
+            <label for="nama">Masukkan nama kamu</label>
+            <input type="text" id="nama" name="nama" placeholder="Contoh: Arsyal" required>
+            <button type="submit">Kirim</button>
+        </form>
+
+        {% if nama %}
+        <p class="hasil">Halo, <strong>{{ nama }}</strong>! Data ini dikirim lewat method POST.</p>
+        {% endif %}
+    </main>
+</body>
+</html>
